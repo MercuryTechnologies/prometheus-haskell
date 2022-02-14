@@ -21,6 +21,7 @@ library
   default-language:    Haskell2010
   exposed-modules:
       Prometheus
+    , Prometheus.Registry.Local
   other-modules:
       Prometheus.Info
     , Prometheus.Label
@@ -34,7 +35,6 @@ library
     , Prometheus.Metric.Vector
     , Prometheus.MonadMonitor
     , Prometheus.Registry
-    , Prometheus.Registry.Local
   build-depends:
       atomic-primops     >=0.4
     , base               >=4.7 && <5
