@@ -14,6 +14,7 @@ module Prometheus (
 -- * Exporting
 
 ,   exportMetricsAsText
+,   exportLocalMetricsAsText
 
 -- * Metrics
 --
