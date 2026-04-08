@@ -1,18 +1,18 @@
 {-# language OverloadedStrings #-}
 
 module Prometheus.Export.Text (
-    exportMetricsAsText
+    exportMetricsAsText,
+    exportLocalMetricsAsText
 ) where
 
 import Prometheus.Info
 import Prometheus.Metric
 import Prometheus.Registry
+import qualified Prometheus.Registry.Local as Local
 
 import Control.Monad.IO.Class
 import qualified Data.ByteString.Builder as Build
 import qualified Data.ByteString.Lazy as BS
-import Data.Foldable (foldMap)
-import Data.Monoid ((<>), mempty, mconcat)
 import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
@@ -39,6 +39,12 @@ import qualified Data.Text.Encoding as T
 exportMetricsAsText :: MonadIO m => m BS.ByteString
 exportMetricsAsText = do
     samples <- collectMetrics
+    return $ Build.toLazyByteString $ foldMap exportSampleGroup samples
+
+-- | Export a particular registry as text. No globals are used.
+exportLocalMetricsAsText :: MonadIO m => Local.Registry -> m BS.ByteString
+exportLocalMetricsAsText rg = do
+    samples <- Local.collect rg
     return $ Build.toLazyByteString $ foldMap exportSampleGroup samples
 
 exportSampleGroup :: SampleGroup -> Build.Builder
