@@ -7,4 +7,6 @@ packages:
 - ../wai-middleware-prometheus
 extra-deps:
 - unix-memory-0.1.2
+- stm-containers-1.2.2
+- stm-hamt-1.2.1
 resolver: lts-21.25
