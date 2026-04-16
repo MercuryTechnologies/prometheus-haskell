@@ -23,7 +23,6 @@ jobs:
           - .ci/stack-nightly.yaml
           - .ci/stack-lts-22.yaml
           - .ci/stack-lts-21.yaml
-          - .ci/stack-lts-16.yaml
 
     steps:
       - uses: actions/checkout@v3
