@@ -134,11 +134,18 @@ module Prometheus (
 -- >>> withLabel myVector ("GET", "200") incCounter 
 -- >>> withLabel myVector ("GET", "404") incCounter 
 -- >>> withLabel myVector ("POST", "200") incCounter 
--- >>> getVectorWith myVector getCounter 
+-- >>> import Data.List (sort)
+-- >>> sort <$> getVectorWith myVector getCounter
 -- [(("GET","200"),2.0),(("GET","404"),1.0),(("POST","200"),1.0)]
--- >>> exportMetricsAsText >>= Data.ByteString.Lazy.putStr
+-- >>> import Data.ByteString.Lazy.Char8 (unpack)
+-- >>> import Data.List (sort, intercalate)
+-- >>> text <- exportMetricsAsText
+-- >>> let ls = lines (unpack text)
+-- >>> let (header, body) = splitAt 2 ls
+-- >>> mapM_ putStrLn header
 -- # HELP http_requests
 -- # TYPE http_requests counter
+-- >>> mapM_ putStrLn (sort (filter (not . null) body))
 -- http_requests{method="GET",code="200"} 2.0
 -- http_requests{method="GET",code="404"} 1.0
 -- http_requests{method="POST",code="200"} 1.0

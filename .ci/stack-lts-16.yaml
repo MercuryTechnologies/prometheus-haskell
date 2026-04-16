@@ -9,4 +9,10 @@ extra-deps:
 - data-sketches-0.3.1.0
 - data-sketches-core-0.1.0.0
 - unix-memory-0.1.2
+- stm-containers-1.2.2
+- stm-hamt-1.2.1
+- primitive-extras-0.10.2.2
+- primitive-unlifted-2.2.0.0
+- focus-1.0.3.2
+- hashable-1.4.7.0
 resolver: lts-16.6
